@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '../App.css';
 import gql from 'graphql-tag';
 import { Query, Mutation } from 'react-apollo';
+import "./Layout.css";
 
 const GET_LOGO = gql`
     query logo($logoId: String) {
@@ -11,6 +12,12 @@ const GET_LOGO = gql`
             text
             color
             fontSize
+            backgroundColor
+            borderColor
+            borderWidth
+            borderRadius
+            padding
+            margin
             lastUpdate
         }
     }
@@ -34,7 +41,8 @@ class ViewLogoScreen extends Component {
                     if (error) return `Error! ${error.message}`;
 
                     return (
-                        <div className="container">
+                        <div className="container viewLogo" >
+
                             <div className="panel panel-default">
                                 <div className="panel-heading">
                                     <h4><Link to="/">Home</Link></h4>
@@ -50,6 +58,20 @@ class ViewLogoScreen extends Component {
                                         <dd>{data.logo.color}</dd>
                                         <dt>Font Size:</dt>
                                         <dd>{data.logo.fontSize}</dd>
+                                        <dt>Background Color:</dt>
+                                        <dd>{data.logo.backgroundColor}</dd>
+                                        <dt>Border Color:</dt>
+                                        <dd>{data.logo.borderColor}</dd>
+                                        <dt>Border Width:</dt>
+                                        <dd>{data.logo.borderWidth}</dd>
+                                        <dt>Border Radius:</dt>
+                                        <dd>{data.logo.borderRadius}</dd>
+                                        <dt>Padding:</dt>
+                                        <dd>{data.logo.padding}</dd>
+                                        <dt>Margin:</dt>
+                                        <dd>{data.logo.margin}</dd>
+
+
                                         <dt>Last Updated:</dt>
                                         <dd>{data.logo.lastUpdate}</dd>
                                     </dl>
@@ -70,6 +92,25 @@ class ViewLogoScreen extends Component {
                                         )}
                                     </Mutation>
                                 </div>
+                            </div>
+                            <div>
+                            <div className = "displayLogo"
+                                style={
+                                    { 
+                                    color: data.logo.color,
+                                    fontSize: data.logo.fontSize + 'px',
+                                    backgroundColor: data.logo.backgroundColor,
+                                    borderStyle: "solid",
+                                    borderColor: data.logo.borderColor,
+                                    borderRadius: data.logo.borderRadius + 'px',
+                                    borderWidth: data.logo.borderWidth + 'px',
+                                    padding: data.logo.padding + 'px',
+                                    margin: data.logo.margin + 'px'
+                                    }
+                                }
+                            >
+                                <p> {data.logo.text}</p>
+                            </div>
                             </div>
                         </div>
                     );
